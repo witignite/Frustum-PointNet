@@ -1,8 +1,15 @@
-## Frustum++
+# Frustum++
 Description: This is an ongoing attempt to extend the original work by:
   1. Using LIDAR point cloud data instead of RGB-D data
   2. Using bird's eye view representation of LIDAR data to generate additional 3D bounding box proposals from the top view
 
+![proposed_architecture](https://github.com/witignite/Frustum-PointNets/blob/master/doc/Fig_3_ProposedArchitecture.PNG)
+
+## TODO
+- [ ] Use LIDAR point cloud data instead of RGB-D data in the original work. (Later)
+- [ ] Project LIDAR point cloud into the bird's eye view (BEV) and train a network to propose 3D bounding boxes.
+  - [ ] Convert the LIDAR point cloud into BEV.
+  - [ ] Construct and train a single-stage network to generate 3D bounding boxes from BEV of point cloud.
 
 ## Original Work: Frustum PointNets for 3D Object Detection from RGB-D Data
 Created by <a href="http://charlesrqi.com" target="_blank">Charles R. Qi</a>, <a href="http://www.cs.unc.edu/~wliu/" target="_black">Wei Liu</a>, <a href="http://www.cs.cornell.edu/~chenxiawu/" target="_blank">Chenxia Wu</a>, <a href="http://cseweb.ucsd.edu/~haosu/" target="_blank">Hao Su</a> and <a href="http://geometry.stanford.edu/member/guibas/" target="_blank">Leonidas J. Guibas</a> from <a href="http://www.stanford.edu" target="_blank">Stanford University</a> and <a href="http://nuro.ai" target="_blank">Nuro Inc.</a>
