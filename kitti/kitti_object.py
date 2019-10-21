@@ -21,6 +21,10 @@ except NameError:
     raw_input = input  # Python 3
 
 
+# Dataset path -----------------------------------------------------------------
+KITTI_DATA_PATH = os.path.expanduser('~/P/DataSet/KITTI/object_detect_3d')
+
+
 class kitti_object(object):
     '''Load and parse object data into a usable format.'''
     
@@ -115,10 +119,10 @@ def viz_kitti_video():
         pc = dataset.get_lidar(0)
         Image.fromarray(img).show()
         draw_lidar(pc)
-        raw_input()
+        input()
         pc[:,0:3] = dataset.get_calibration().project_velo_to_rect(pc[:,0:3])
         draw_lidar(pc)
-        raw_input()
+        input()
     return
 
 def show_image_with_boxes(img, objects, calib, show3d=True):
@@ -200,7 +204,8 @@ def show_lidar_on_image(pc_velo, img, calib, img_width, img_height):
     return img
 
 def dataset_viz():
-    dataset = kitti_object(os.path.join(ROOT_DIR, 'dataset/KITTI/object'))
+    # dataset = kitti_object(os.path.join(ROOT_DIR, 'dataset/KITTI/object'))
+    dataset = kitti_object(KITTI_DATA_PATH)
 
     for data_idx in range(len(dataset)):
         # Load data from dataset
@@ -215,10 +220,10 @@ def dataset_viz():
 
         # Draw 2d and 3d boxes on image
         show_image_with_boxes(img, objects, calib, False)
-        raw_input()
+        input()
         # Show all LiDAR points. Draw 3d box in LiDAR point cloud
         show_lidar_with_boxes(pc_velo, objects, calib, True, img_width, img_height)
-        raw_input()
+        input()
 
 if __name__=='__main__':
     import mayavi.mlab as mlab

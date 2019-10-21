@@ -21,7 +21,7 @@ sys.path.append(os.path.join(BASE_DIR, '../sunrgbd_data'))
 from utils import save_zipped_pickle
 import roi_seg_box3d_dataset
 from roi_seg_box3d_dataset import NUM_CLASS, NUM_SIZE_CLUSTER, NUM_HEADING_BIN
-import cPickle as pickle
+import pickle
 from train_util import get_batch
 
 parser = argparse.ArgumentParser()
@@ -167,7 +167,7 @@ def main_batch_from_rgb_detection(output_filename, result_dir=None):
 
     test_idxs = np.arange(0, len(TEST_DATASET))
     print(len(TEST_DATASET))
-    raw_input()
+    input()
     batch_size = 32
     num_batches = int((len(TEST_DATASET)+batch_size-1)/batch_size)
     
@@ -204,7 +204,7 @@ def main_batch_from_rgb_detection(output_filename, result_dir=None):
 
     # Write detection results for KITTI evaluation
     print(len(ps_list))
-    raw_input()
+    input()
     write_detection_results(result_dir, TEST_DATASET.id_list, TEST_DATASET.type_list, TEST_DATASET.box2d_list, center_list, heading_cls_list, heading_res_list, size_cls_list, size_res_list, rot_angle_list, score_list)
     # Make sure for each frame (no matter if we have measurment for that frame), there is a TXT file
     output_dir = os.path.join(result_dir, 'data')
@@ -245,7 +245,7 @@ def main_batch(output_filename, result_dir=None):
 	batch_output, batch_center_pred, batch_hclass_pred, batch_hres_pred, batch_sclass_pred, batch_sres_pred, batch_scores = inference(sess, ops, batch_data_to_feed, batch_one_hot_to_feed, batch_size=batch_size)
         print(batch_hclass_pred.shape, batch_hres_pred.shape)
         print(batch_sclass_pred.shape, batch_sres_pred.shape)
-        #raw_input()
+        #input()
         correct_cnt += np.sum(batch_output[0:cur_batch_size,...]==batch_label[0:cur_batch_size,...])
 	
         for i in range(cur_batch_size):

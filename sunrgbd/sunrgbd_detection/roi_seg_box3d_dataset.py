@@ -1,5 +1,5 @@
 ''' Provider class for RoI binary segmentation task '''
-import cPickle as pickle
+import pickle
 import sys
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -311,7 +311,7 @@ if __name__=='__main__':
     print(type(dataset.input_list[0][0,0]))
     print(dataset.input_list[0].shape)
     print(dataset.input_list[2].shape)
-    raw_input()
+    input()
     for i in range(len(dataset)):
         data = dataset[i]
         print('Center: ', data[2], 'angle_class: ', data[3], 'angle_res:', data[4], 'size_class: ', data[5], 'size_residual:', data[6], 'real_size:', type_mean_size[class2type[data[5]]]+data[6])
@@ -319,7 +319,7 @@ if __name__=='__main__':
         median_list.append(np.median(data[0][:,0]))
         print(data[2], dataset.box3d_list[i], median_list[-1])
         box3d_from_label = get_3d_box(class2size(data[5],data[6]), class2angle(data[3], data[4],12), data[2])
-        #raw_input()
+        #input()
 
         ## Recover original labels
         #rot_angle = dataset.get_center_view_rot_angle(i)
@@ -335,5 +335,5 @@ if __name__=='__main__':
         draw_gt_boxes3d([box3d_from_label], fig, color=(1,0,0))
         mlab.orientation_axes()
         print(ps[0:10,:])
-        raw_input()
+        input()
     print(np.mean(np.abs(median_list)))

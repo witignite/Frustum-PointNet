@@ -3,7 +3,7 @@
 
     End-to-end visualization of RGB detector and 3D segmentation and box regression.
 '''
-import cPickle as pickle
+import pickle
 import numpy as np
 import argparse
 from PIL import Image
@@ -152,7 +152,7 @@ for img_id in shuffled_keys:
         # ---------- END ----------------
                 
         print i,iou3d_idx,iou3d_max
-        #raw_input()
+        #input()
         if iou3d_max>=0.25:
             color_list.append((0,1,0))
         else:
@@ -161,7 +161,7 @@ for img_id in shuffled_keys:
         if img_id==403:
             if i>=2: continue
         cv2.rectangle(img, (int(box2d[0]),int(box2d[1])), (int(box2d[2]),int(box2d[3])), (0,122,122), 3)
-        cv2.putText(img,'%d-%s'%(i,classname),(int(box2d[0]),int(box2d[1])),cv2.FONT_HERSHEY_SIMPLEX,1,(0,122,122),2,cv2.CV_AA) # For later OpenCV version use LINE_AA
+        cv2.putText(img,'%d-%s'%(i,classname),(int(box2d[0]),int(box2d[1])),cv2.FONT_HERSHEY_SIMPLEX,1,(0,122,122),2,cv2.LINE_AA) # For later OpenCV version use LINE_AA
     Image.fromarray(img).show()
     print pred2gt_idx_map
 
@@ -172,7 +172,7 @@ for img_id in shuffled_keys:
     draw_gt_boxes3d(box3d_pred_list, fig, color = (0,1,0), text_scale = (0.1,0.1,0.1), line_width=3, color_list=color_list)
     #draw_gt_boxes3d(box3d_list, fig, color = (0,0,1), draw_text=False, line_width=3)
     #mlab.orientation_axes()
-    #raw_input()
+    #input()
     #draw_gt_boxes3d(viz_gt_box3d_list, fig, color = (0,0,1), draw_text=False, line_width=3)
 
     #print np.max(pc_upright_camera[:,1])
@@ -193,7 +193,7 @@ for img_id in shuffled_keys:
     mlab.points3d(pc_upright_camera[:,0], pc_upright_camera[:,1], pc_upright_camera[:,2], pc_upright_camera[:,2], mode='point', colormap='gnuplot', scale_factor=1, figure=fig)
     draw_gt_boxes3d(gt_box3d_list, fig, color = (0,0,1), draw_text=False, line_width=3, text_scale=(0.1,0.1,0.1))
     #mlab.orientation_axes()
-    input_char = raw_input()
+    input_char = input()
     if input_char=='s':
         np.savetxt('pc_%d.txt'%(img_id), pc_upright_camera, fmt='%.4f')
         output_arr = np.zeros((len(box3d_pred_list), 8, 3))

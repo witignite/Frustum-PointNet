@@ -5,7 +5,7 @@ Date: September 2017
 '''
 from __future__ import print_function
 
-import cPickle as pickle
+import pickle
 import sys
 import os
 import numpy as np
@@ -377,5 +377,5 @@ if __name__=='__main__':
         mlab.points3d(0, 0, 0, color=(1,1,1), mode='sphere', scale_factor=0.2, figure=fig)
         draw_gt_boxes3d([box3d_from_label], fig, color=(1,0,0))
         mlab.orientation_axes()
-        raw_input()
+        input()
     print(np.mean(np.abs(median_list)))
