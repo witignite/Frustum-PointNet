@@ -272,24 +272,24 @@ def draw_projected_box3d(image, qs, color=(255,255,255), thickness=2):
     for k in range(0,4):
        #http://docs.enthought.com/mayavi/mayavi/auto/mlab_helper_functions.html
        i,j=k,(k+1)%4
-       cv2.line(image, (qs[i,0],qs[i,1]), (qs[j,0],qs[j,1]), color, thickness, cv2.CV_AA) # use LINE_AA for opencv3
+       cv2.line(image, (qs[i,0],qs[i,1]), (qs[j,0],qs[j,1]), color, thickness, cv2.LINE_AA) # use LINE_AA for opencv3
 
        i,j=k+4,(k+1)%4 + 4
-       cv2.line(image, (qs[i,0],qs[i,1]), (qs[j,0],qs[j,1]), color, thickness, cv2.CV_AA)
+       cv2.line(image, (qs[i,0],qs[i,1]), (qs[j,0],qs[j,1]), color, thickness, cv2.LINE_AA)
 
        i,j=k,k+4
-       cv2.line(image, (qs[i,0],qs[i,1]), (qs[j,0],qs[j,1]), color, thickness, cv2.CV_AA)
+       cv2.line(image, (qs[i,0],qs[i,1]), (qs[j,0],qs[j,1]), color, thickness, cv2.LINE_AA)
     return image
 
 
-import cPickle
+import pickle
 import gzip
 
 def save_zipped_pickle(obj, filename, protocol=-1):
     with gzip.open(filename, 'wb') as f:
-        cPickle.dump(obj, f, protocol)
+        pickle.dump(obj, f, protocol)
 
 def load_zipped_pickle(filename):
     with gzip.open(filename, 'rb') as f:
-        loaded_object = cPickle.load(f)
+        loaded_object = pickle.load(f)
         return loaded_object

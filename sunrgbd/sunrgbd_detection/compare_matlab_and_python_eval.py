@@ -1,5 +1,5 @@
 """ Compare MATLAB and Python eval code on AP computation """
-import cPickle as pickle
+import pickle
 import numpy as np
 import argparse
 from PIL import Image
@@ -97,7 +97,7 @@ if __name__=='__main__':
     
     # =================================================================================
     """
-    import cPickle as pickle
+    import pickle
     from PIL import Image
     import cv2
     import roi_seg_box3d_dataset

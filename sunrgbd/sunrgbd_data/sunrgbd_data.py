@@ -78,7 +78,7 @@ def dataset_viz(show_frustum=False):
         uv,d = calib.project_upright_depth_to_image(pc[:,0:3])
         print(uv)
         print(d)
-        raw_input()
+        input()
         
         import matplotlib.pyplot as plt
         cmap = plt.cm.get_cmap('hsv', 256)
@@ -91,12 +91,12 @@ def dataset_viz(show_frustum=False):
             color = cmap[int(120.0/depth),:]
             cv2.circle(img, (int(np.round(uv[i,0])), int(np.round(uv[i,1]))), 2, color=tuple(color), thickness=-1)
         Image.fromarray(img).show() 
-        raw_input()
+        input()
         
         # Load box labels
         objects = sunrgbd.get_label_objects(data_idx)
         print(objects)
-        raw_input()
+        input()
         
         # Draw 2D boxes on image
         img = sunrgbd.get_image(data_idx)
@@ -105,7 +105,7 @@ def dataset_viz(show_frustum=False):
             cv2.rectangle(img, (int(obj.xmin),int(obj.ymin)), (int(obj.xmax),int(obj.ymax)), (0,255,0), 2)
             cv2.putText(img, '%d %s'%(i,obj.classname), (max(int(obj.xmin),15), max(int(obj.ymin),15)), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,0,0), 2)
         Image.fromarray(img).show()
-        raw_input()
+        input()
         
         # Draw 3D boxes on depth points
         box3d = []
@@ -116,7 +116,7 @@ def dataset_viz(show_frustum=False):
             print('Corners 3D: ', corners_3d)
             box3d.append(corners_3d)
             ori3d.append(ori_3d)
-        raw_input()
+        input()
         
         bgcolor=(0,0,0)
         fig = mlab.figure(figure=None, bgcolor=bgcolor, fgcolor=None, engine=None, size=(1600, 1000))
@@ -132,7 +132,7 @@ def dataset_viz(show_frustum=False):
         for i,obj in enumerate(objects):
             print('Orientation: ', i, np.arctan2(obj.orientation[1], obj.orientation[0]))
             print('Dimension: ', i, obj.l, obj.w, obj.h)
-        raw_input()
+        input()
        
         if show_frustum: 
             img = sunrgbd.get_image(data_idx)
@@ -147,7 +147,7 @@ def dataset_viz(show_frustum=False):
                 
                 fig = mlab.figure(figure=None, bgcolor=bgcolor, fgcolor=None, engine=None, size=(1000, 1000))
                 mlab.points3d(box2d_fov_pc[:,0], box2d_fov_pc[:,1], box2d_fov_pc[:,2], box2d_fov_pc[:,2], mode='point', colormap='gnuplot', figure=fig)
-                raw_input()
+                input()
 
 
 def extract_roi_seg(idx_filename, split, output_filename, viz, perturb_box2d=False, augmentX=1, type_whitelist=['bed','table','sofa','chair','toilet','desk','dresser','night_stand','bookshelf','bathtub']):
@@ -177,7 +177,7 @@ def extract_roi_seg(idx_filename, split, output_filename, viz, perturb_box2d=Fal
         if viz:
             mlab.points3d(pc_upright_camera[:,0], pc_upright_camera[:,1], pc_upright_camera[:,2], pc_upright_camera[:,1], mode='point')
             mlab.orientation_axes()
-            raw_input()
+            input()
         img = dataset.get_image(data_idx)
         img_height, img_width, img_channel = img.shape
         pc_image_coord,_ = calib.project_upright_depth_to_image(pc_upright_depth)
@@ -261,7 +261,7 @@ def extract_roi_seg(idx_filename, split, output_filename, viz, perturb_box2d=Fal
                         mlab.points3d(0, 0, 0, color=(1,1,1), mode='sphere', scale_factor=0.2)
                         draw_gt_boxes3d([box3d_pts_3d], fig=fig)
                         mlab.orientation_axes()
-                        raw_input()
+                        input()
                 except:
                     pass
 
@@ -289,7 +289,7 @@ def get_box3d_dim_statistics(idx_filename, type_whitelist=['bed','table','sofa',
             type_list.append(obj.classname) 
             ry_list.append(heading_angle)
 
-    import cPickle as pickle
+    import pickle
     with open('box3d_dimensions.pickle','wb') as fp:
         pickle.dump(type_list, fp)
         pickle.dump(dimension_list, fp)
@@ -401,7 +401,7 @@ def extract_roi_seg_from_rgb_detection(det_folder, split, output_filename, viz, 
             mlab.points3d(p1[:,0], p1[:,1], p1[:,2], p1[:,1], mode='point', colormap='gnuplot', scale_factor=1, figure=fig)
             fig = mlab.figure(figure=None, bgcolor=(0.4,0.4,0.4), fgcolor=None, engine=None, size=(500, 500))
             mlab.points3d(p1[:,2], -p1[:,0], -p1[:,1], seg, mode='point', colormap='gnuplot', scale_factor=1, figure=fig)
-            raw_input()
+            input()
 
 
 if __name__=='__main__':

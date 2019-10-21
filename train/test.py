@@ -13,7 +13,7 @@ import argparse
 import importlib
 import numpy as np
 import tensorflow as tf
-import cPickle as pickle
+import pickle
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 sys.path.append(BASE_DIR)

@@ -1,4 +1,4 @@
-import cPickle as pickle
+import pickle
 import numpy as np
 import argparse
 from PIL import Image
@@ -35,7 +35,7 @@ gt_all = {}
 ovthresh = 0.25
 
 print len(segp_list), len(TEST_DATASET)
-raw_input()
+input()
 
 # Get GT boxes
 print 'Construct GT boxes...'
@@ -69,7 +69,7 @@ for classname in classname_list:
             gt_all[img_id].append((classname, box))
 #print gt_all[1]
 #print gt_all2[1]
-raw_input()
+input()
 
 # Get PRED boxes
 print 'Construct PRED boxes...'
@@ -95,7 +95,7 @@ for i in range(len(TEST_DATASET)):
         pred_all[img_id] = []
     pred_all[img_id].append((classname, corners_3d_pred, score_list[i]))
 print pred_all[1]
-raw_input()
+input()
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -113,5 +113,5 @@ for classname in ap.keys():
     plt.ylabel('Precision', fontsize=24)
     plt.title(classname, fontsize=24)
     plt.show()
-    raw_input()
+    input()
 print 'mean AP: ', np.mean([ap[classname] for classname in ap])

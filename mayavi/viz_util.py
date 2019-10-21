@@ -129,4 +129,4 @@ if __name__=='__main__':
     pc = np.loadtxt('mayavi/kitti_sample_scan.txt')
     fig = draw_lidar(pc)
     mlab.savefig('pc_view.jpg', figure=fig)
-    raw_input()
+    input()

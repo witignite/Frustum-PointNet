@@ -15,9 +15,13 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 sys.path.append(BASE_DIR)
 sys.path.append(os.path.join(ROOT_DIR, 'mayavi'))
 import kitti_util as utils
-import cPickle as pickle
+import pickle
 from kitti_object import *
 import argparse
+
+
+# Dataset path -----------------------------------------------------------------
+KITTI_DATA_PATH = os.path.expanduser('~/P/DataSet/KITTI/object_detect_3d')
 
 
 def in_hull(p, hull):
@@ -44,7 +48,8 @@ def extract_pc_in_box2d(pc, box2d):
 def demo():
     import mayavi.mlab as mlab
     from viz_util import draw_lidar, draw_lidar_simple, draw_gt_boxes3d
-    dataset = kitti_object(os.path.join(ROOT_DIR, 'dataset/KITTI/object'))
+    # dataset = kitti_object(os.path.join(ROOT_DIR, 'dataset/KITTI/object'))
+    dataset = kitti_object(KITTI_DATA_PATH)
     data_idx = 0
 
     # Load data from dataset
@@ -61,24 +66,24 @@ def demo():
     #print(' -------- LiDAR points in rect camera coordination --------')
     #pc_rect = calib.project_velo_to_rect(pc_velo)
     #fig = draw_lidar_simple(pc_rect)
-    #raw_input()
+    #input()
 
     # Draw 2d and 3d boxes on image
     print(' -------- 2D/3D bounding boxes in images --------')
     show_image_with_boxes(img, objects, calib)
-    raw_input()
+    input()
 
     # Show all LiDAR points. Draw 3d box in LiDAR point cloud
     print(' -------- LiDAR points and 3D boxes in velodyne coordinate --------')
     #show_lidar_with_boxes(pc_velo, objects, calib)
-    #raw_input()
+    #input()
     show_lidar_with_boxes(pc_velo, objects, calib, True, img_width, img_height)
-    raw_input()
+    input()
 
     # Visualize LiDAR points on images
     print(' -------- LiDAR points projected to image plane --------')
     show_lidar_on_image(pc_velo, img, calib, img_width, img_height) 
-    raw_input()
+    input()
     
     # Show LiDAR points that are in the 3d box
     print(' -------- LiDAR points in a 3D bounding box --------')
@@ -92,7 +97,7 @@ def demo():
     draw_lidar(box3droi_pc_velo, fig=fig)
     draw_gt_boxes3d([box3d_pts_3d_velo], fig=fig)
     mlab.show(1)
-    raw_input()
+    input()
     
     # UVDepth Image and its backprojection to point clouds
     print(' -------- LiDAR points in a frustum from a 2D box --------')
@@ -113,7 +118,7 @@ def demo():
     fig = mlab.figure(figure=None, bgcolor=(0,0,0),
         fgcolor=None, engine=None, size=(1000, 500))
     draw_lidar(backprojected_pc_velo, fig=fig)
-    raw_input()
+    input()
 
     # Only display those points that fall into 2d box
     print(' -------- LiDAR points in a frustum from a 2D box --------')
@@ -127,7 +132,7 @@ def demo():
         fgcolor=None, engine=None, size=(1000, 500))
     draw_lidar(boxfov_pc_velo, fig=fig)
     mlab.show(1)
-    raw_input()
+    input()
 
 def random_shift_box2d(box2d, shift_ratio=0.1):
     ''' Randomly shift box center, randomly scale width and height 
@@ -163,7 +168,8 @@ def extract_frustum_data(idx_filename, split, output_filename, viz=False,
     Output:
         None (will write a .pickle file to the disk)
     '''
-    dataset = kitti_object(os.path.join(ROOT_DIR,'dataset/KITTI/object'), split)
+    # dataset = kitti_object(os.path.join(ROOT_DIR,'dataset/KITTI/object'), split)
+    dataset = kitti_object(KITTI_DATA_PATH, split)
     data_idx_list = [int(line.rstrip()) for line in open(idx_filename)]
 
     id_list = [] # int number
@@ -275,11 +281,12 @@ def extract_frustum_data(idx_filename, split, output_filename, viz=False,
                 fgcolor=None, engine=None, size=(500, 500))
             mlab.points3d(p1[:,2], -p1[:,0], -p1[:,1], seg, mode='point',
                 colormap='gnuplot', scale_factor=1, figure=fig)
-            raw_input()
+            input()
 
 def get_box3d_dim_statistics(idx_filename):
     ''' Collect and dump 3D bounding box statistics '''
-    dataset = kitti_object(os.path.join(ROOT_DIR,'dataset/KITTI/object'))
+    # dataset = kitti_object(os.path.join(ROOT_DIR,'dataset/KITTI/object'))
+    dataset = kitti_object(KITTI_DATA_PATH)
     dimension_list = []
     type_list = []
     ry_list = []
@@ -336,7 +343,8 @@ def extract_frustum_data_rgb_detection(det_filename, split, output_filename,
     Output:
         None (will write a .pickle file to the disk)
     '''
-    dataset = kitti_object(os.path.join(ROOT_DIR, 'dataset/KITTI/object'), split)
+    # dataset = kitti_object(os.path.join(ROOT_DIR, 'dataset/KITTI/object'), split)
+    dataset = kitti_object(KITTI_DATA_PATH, split)
     det_id_list, det_type_list, det_box2d_list, det_prob_list = \
         read_det_file(det_filename)
     cache_id = -1
@@ -419,7 +427,7 @@ def extract_frustum_data_rgb_detection(det_filename, split, output_filename,
                 fgcolor=None, engine=None, size=(500, 500))
             mlab.points3d(p1[:,2], -p1[:,0], -p1[:,1], seg, mode='point',
                 colormap='gnuplot', scale_factor=1, figure=fig)
-            raw_input()
+            input()
 
 def write_2d_rgb_detection(det_filename, split, result_dir):
     ''' Write 2D detection results for KITTI evaluation.
@@ -436,7 +444,8 @@ def write_2d_rgb_detection(det_filename, split, result_dir):
     Usage:
         write_2d_rgb_detection("val_det.txt", "training", "results")
     '''
-    dataset = kitti_object(os.path.join(ROOT_DIR, 'dataset/KITTI/object'), split)
+    # dataset = kitti_object(os.path.join(ROOT_DIR, 'dataset/KITTI/object'), split)
+    dataset = kitti_object(KITTI_DATA_PATH, split)
     det_id_list, det_type_list, det_box2d_list, det_prob_list = \
         read_det_file(det_filename)
     # map from idx to list of strings, each string is a line without \n
@@ -483,24 +492,24 @@ if __name__=='__main__':
 
     if args.gen_train:
         extract_frustum_data(\
-            os.path.join(BASE_DIR, 'image_sets/train.txt'),
-            'training',
-            os.path.join(BASE_DIR, output_prefix+'train.pickle'), 
+            idx_filename=os.path.join(BASE_DIR, 'image_sets/train.txt'),
+            split='training',
+            output_filename=os.path.join(BASE_DIR, output_prefix+'train.pickle'), 
             viz=False, perturb_box2d=True, augmentX=5,
             type_whitelist=type_whitelist)
 
     if args.gen_val:
         extract_frustum_data(\
-            os.path.join(BASE_DIR, 'image_sets/val.txt'),
-            'training',
-            os.path.join(BASE_DIR, output_prefix+'val.pickle'),
+            idx_filename=os.path.join(BASE_DIR, 'image_sets/val.txt'),
+            split='training',
+            output_filename=os.path.join(BASE_DIR, output_prefix+'val.pickle'),
             viz=False, perturb_box2d=False, augmentX=1,
             type_whitelist=type_whitelist)
 
     if args.gen_val_rgb_detection:
         extract_frustum_data_rgb_detection(\
-            os.path.join(BASE_DIR, 'rgb_detections/rgb_detection_val.txt'),
-            'training',
-            os.path.join(BASE_DIR, output_prefix+'val_rgb_detection.pickle'),
+            det_filename=os.path.join(BASE_DIR, 'rgb_detections/rgb_detection_val.txt'),
+            split='training',
+            output_filename=os.path.join(BASE_DIR, output_prefix+'val_rgb_detection.pickle'),
             viz=False,
             type_whitelist=type_whitelist) 

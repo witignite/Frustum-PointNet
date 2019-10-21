@@ -3,3 +3,10 @@
 
 # JetBrains
 .idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# Data
+kitti/*.pickle

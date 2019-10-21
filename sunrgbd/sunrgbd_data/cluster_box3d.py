@@ -1,6 +1,6 @@
 ''' Cluster and visualize distribution of box3d '''
 
-import cPickle as pickle
+import pickle
 with open('box3d_dimensions.pickle','rb') as fp:
     type_list = pickle.load(fp)
     dimension_list = pickle.load(fp) # l,w,h
@@ -11,7 +11,7 @@ box3d_pts = np.vstack(dimension_list)
 print box3d_pts.shape
 
 print set(type_list)
-raw_input()
+input()
 
 
 # Get average box size for different catgories
@@ -27,7 +27,7 @@ for class_type in sorted(set(type_list)):
     median_box3d = np.median(box3d_list,0)
     print "\'%s\': np.array([%f,%f,%f])," % (class_type, median_box3d[0]*2, median_box3d[1]*2, median_box3d[2]*2)
     median_box3d_list.append(median_box3d)
-raw_input()
+input()
 
 import mayavi.mlab as mlab
 fig = mlab.figure(figure=None, bgcolor=(0,0,0), fgcolor=None, engine=None, size=(1000, 500))
@@ -54,4 +54,4 @@ mlab.orientation_axes()
 
 for box in median_box3d_list:
     mlab.points3d(box[0], box[1], box[2], color=(1,0,1), mode='sphere', scale_factor=0.4)
-raw_input()
+input()

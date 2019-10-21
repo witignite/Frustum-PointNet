@@ -3,7 +3,7 @@
 
     Take GT box2d, eval 3D box estimation accuracy. Also able to visualize 3D predictions.
 '''
-import cPickle as pickle
+import pickle
 import numpy as np
 import argparse
 from PIL import Image
@@ -107,7 +107,7 @@ for i in range(len(segp_list)):
         draw_gt_boxes3d([corners_3d_pred], fig, color = (0,1,0), draw_text=False)
         mlab.points3d(center[0], center[1], center[2], color=(0,1,0), mode='sphere', scale_factor=0.4, figure=fig)
         mlab.orientation_axes()
-        raw_input()
+        input()
 
 print '-----------------------'
 print 'Total cnt: %d, acuracy: %f' % (total_cnt, correct_cnt/float(total_cnt))
