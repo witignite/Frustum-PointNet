@@ -1,3 +1,5 @@
+
+# This is only for reference, no need to run
 g++ query_ball_point.cpp -o query_ball_point
 nvcc query_ball_point.cu -o query_ball_point_cuda
 nvcc query_ball_point_block.cu -o query_ball_point_block
