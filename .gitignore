@@ -9,4 +9,23 @@ __pycache__/
 *.pyc
 
 # Data
-kitti/*.pickle
+# kitti/*.pickle
+kitti/frustum_carpedcyc_train.pickle
+kitti/frustum_carpedcyc_val.pickle
+kitti/frustum_carpedcyc_val_rgb_detection.pickle
+
+# TensorFlow Custom Ops
+models/tf_ops/3d_interpolation/tf_interpolate_so.so
+models/tf_ops/grouping/tf_grouping_g.cu.o
+models/tf_ops/grouping/tf_grouping_so.so
+models/tf_ops/sampling/tf_sampling_g.cu.o
+models/tf_ops/sampling/tf_sampling_so.so
+
+# Pre-trained models
+models_pretrained/wit/
+
+# Train results
+train/log_v2/
+
+# Test results
+train/detection_results_v2/

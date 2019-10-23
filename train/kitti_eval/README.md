@@ -2,7 +2,7 @@ Reference: <a href="https://github.com/prclibo/kitti_eval" target="_blank">https
 
 # kitti_eval
 
-`evaluate_object_3d_offline.cpp`evaluates your KITTI detection locally on your own computer using your validation data selected from KITTI training dataset, with the following metrics:
+`evaluate_object_3d_offline.cpp` evaluates your KITTI detection locally on your own computer using your validation data selected from KITTI training dataset, with the following metrics:
 
 - overlap on image (AP)
 - oriented overlap on image (AOS)
